@@ -41,6 +41,35 @@
         </div>
     </nav>
     <!--Add a dealer table here -->
+    {% block content %}
+    {% if dealer_list %}
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>id</th>
+            <th>State</th>
+            <th>Name</th>
+            <th>City</th>
+            <th>Address</th>
+            <th>Link</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for dealer in dealer_list %}
+        <tr>
+            <td>{{ dealer.id }}</td>
+            <td>{{ dealer.st }}</td>
+            <td>{{ dealer.full_name }}</td>
+            <td>{{ dealer.city }}</td>
+            <td>{{ dealer.address}}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <h3>No dealer available.</h3>
+    {% endif %}
+    {% endblock %}
 
     </body>
 
