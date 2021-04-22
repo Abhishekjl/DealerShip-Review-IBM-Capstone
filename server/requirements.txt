@@ -2,3 +2,5 @@ requests
 Django
 gunicorn
 Pillow
+ibm-watson
+ibm-cloud-sdk-core
