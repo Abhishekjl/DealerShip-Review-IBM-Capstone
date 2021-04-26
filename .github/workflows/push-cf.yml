@@ -32,6 +32,8 @@ jobs:
           python3 manage.py makemigrations djangoapp
           python3 manage.py migrate --run-syncdb
           python3 manage.py migrate
+          export DJANGO_SUPERUSER_PASSWORD=root
+          python3 manage.py createsuperuser --noinput --username root --email root@gmail.com
 
 
         shell: bash
