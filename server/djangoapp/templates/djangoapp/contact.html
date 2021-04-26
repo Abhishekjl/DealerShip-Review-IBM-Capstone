@@ -15,16 +15,37 @@
 </head>
 
     <body>
-    <!--Add a nav bar here -->
+<!--Add a nav bar here -->
     <nav class="navbar navbar-light bg-light">
-        <a class="navbar-brand" href="{% url 'djangoapp:about' %}">About Us</a>
-        <a class="navbar-brand" href="{% url 'djangoapp:contact' %}">Contact Us</a>
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Home</a>
+                <a class="navbar-brand" href="{% url 'djangoapp:about' %}">About Us</a>
+                <a class="navbar-brand" href="{% url 'djangoapp:contact' %}">Contact Us</a>
+            </div>
+            <ul class="nav navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+            <li>
+                <a class="btn btn-link" type="#">({{ user.username }})</a>    
+                <a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <form clas="form-inline" action="{% url 'djangoapp:login' %}", method="POST">
+                {% csrf_token %}
+                <input type="text" placeholder="Username" name="username">
+                <input type="password" placeholder="Password" name="pwd">
+                <button class="btn btn-primary" type="submit">Login</button>    
+                <a class="btn btn-link" href="{% url 'djangoapp:registration' %}">Sign Up</a>
+            </form>
+            {% endif %}
+            </ul>
+        </div>
     </nav>
     <!--Add a dealer table here -->
 
 
     <p class="mt-5 h1 text-center">
-        Contacts:
+        Contact:
         <ul class="lead mt-3 text-center">
             <li class="mt-2">Address: Hello World Drive</li>
             <li class="mt-2">Telephone: 5555555555</li>
