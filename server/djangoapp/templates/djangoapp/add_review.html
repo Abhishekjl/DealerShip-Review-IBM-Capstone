@@ -11,6 +11,85 @@
 
 </head>
     <body>
+        
+    <!--Add a nav bar here -->
+    <nav class="navbar navbar-light bg-light">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="{% url 'djangoapp:index' %}">Home</a>
+                <a class="navbar-brand" href="{% url 'djangoapp:about' %}">About Us</a>
+                <a class="navbar-brand" href="{% url 'djangoapp:contact' %}">Contact Us</a>
+            </div>
+            <ul class="nav navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+            <li>
+                <a class="btn btn-link" type="#">({{ user.username }})</a>    
+                <a class="btn btn-link" href="{% url 'djangoapp:logout' %}">Logout</a>
+            </li>
+            {% else %}
+            <form clas="form-inline" action="{% url 'djangoapp:login' %}", method="POST">
+                {% csrf_token %}
+                <input type="text" placeholder="Username" name="username">
+                <input type="password" placeholder="Password" name="pwd">
+                <button class="btn btn-primary" type="submit">Login</button>    
+                <a class="btn btn-link" href="{% url 'djangoapp:registration' %}">Sign Up</a>
+            </form>
+            {% endif %}
+            </ul>
+        </div>
+    </nav>
+
     <!--Add review form here -->
+    {% if user.is_authenticated%}
+        <h1>Add a Review about this Dealership</h1>
+        <form class="my-3" action="{% url 'djangoapp:add_review' dealer_id %}" method="post">
+            <div class='container' style="width: 600px;">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="review">Enter the review content:</label><br/>
+                    <textarea name="review" class="form-control" rows="2" required></textarea><br/>
+                    
+                    <label for="purchase">Have you purchased a car from this Dealership?</label><br/>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="True" name="purchase">
+                        <label class="form-check-label" for="purchase">
+                            True
+                        </label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" value="False" name="purchase" checked>
+                        <label class="form-check-label" for="purchase">
+                            False
+                        </label>
+                    </div><br/>
+
+                    <label class="text-warning">If purhcased, please give us more information:</label><br/>
+                    <label for="car_make">Car Make</label>
+                    <input name="car_make" class="form-control" type="text" placeholder="Mercedes-Benz">
+                    <label for="car_model">Car Model</label>
+                    <input name="car_model" class="form-control" type="text" placeholder="GLC 43">
+                    <label for="car_year">Model Year</label>
+                    <input name="car_year" class="form-control" type="number" min="1990" max="2021" step="1" placeholder="2021">
+                   
+                    <br/>
+                    <div class="form-group" data-provide="datepicker">
+                        <label for="purchase_date">Select your purchase date:</label>
+                        <input class="date-own" type="text" name="purchase_date" id="purchase_date">
+                                <script type="text/javascript">
+                                    $('.date-own').datepicker({
+                                        format: 'mm/dd/yyyy'
+                                    });
+                                </script>  
+                    </div>
+                    <br/>
+
+                    <button class="btn btn-primary" type="submit">Submit Review</button>
+                </div>
+            </div>
+        </form>
+  
+    {% else %}
+        <a class="btn btn-outline-primary mx-5 my-5" href="{% url 'djangoapp:register' %}">Sign up to Review</a>
+    {% endif %}
     </body>
 </html>

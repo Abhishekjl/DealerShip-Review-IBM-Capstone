@@ -101,8 +101,13 @@ def get_dealer_details(request, dealer_id):
         url = "https://8328ba60.us-south.apigw.appdomain.cloud/api/review"
         reviews = get_dealer_reviews_from_cf(url, dealerId=dealer_id)
         #print(reviews)
-        context['reviews'] = reviews
         context['dealer_id'] = dealer_id
+        temp = []
+        for i in reviews:
+            if i.dealership == dealer_id:
+                print(i.name)
+                temp.append(i)
+        context['reviews'] = temp
         return render(request, 'djangoapp/dealer_details.html', context)
         #return HttpResponse(reviews[dealer_id].sentiment)
 
@@ -132,7 +137,10 @@ def add_review(request, dealer_id):
 
                 url = "https://8328ba60.us-south.apigw.appdomain.cloud/api/review/"
 
+                #json_payload = {}
+                #json_payload['review'] = review
+
                 post_request(url, review, dealerId=dealer_id)
             
-                return redirect('djangoapp:dealer_details', context)
+                return redirect('djangoapp:dealer_details', dealer_id=dealer_id)
 

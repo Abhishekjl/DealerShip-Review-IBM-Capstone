@@ -43,33 +43,38 @@
     <!--Add a dealer table here -->
     {% block content %}
     {% if dealer_list %}
-    <table class="table table-striped">
+    <table class="table table-striped" id="table" data-filter-control="true" style="margin-top: 3%; margin-bottom: 3%;">
         <thead>
         <tr>
-            <th>id</th>
-            <th>State</th>
-            <th>Name</th>
-            <th>City</th>
-            <th>Address</th>
-            <th>Link</th>
+            <th scope="col">ID</th>
+            <th scope="col">Dealer Name</th>
+            <th scope="col">City</th>
+            <th scope="col">Address</th>
+            <th scope="col">Zip</th>
+            <th data-field="state" data-filter-control="select">State</th>
         </tr>
         </thead>
         <tbody>
         {% for dealer in dealer_list %}
         <tr>
-            <td>{{ dealer.id }}</td>
-            <td>{{ dealer.st }}</td>
-            <td>{{ dealer.full_name }}</td>
-            <td>{{ dealer.city }}</td>
-            <td>{{ dealer.address}}</td>
+            <td style="padding: 2%;">{{ dealer.id }}</td>
+            <td style="padding: 2%;"><a href="{% url 'djangoapp:dealer_details' dealer.id %}">{{dealer.full_name}}</a></td>
+            <td style="padding: 2%;">{{ dealer.city }}</td>
+            <td style="padding: 2%;">{{ dealer.address}}</td>
+            <td style="padding: 2%;">{{ dealer.zip}}</td>
+            <td style="padding: 2%;">{{ dealer.st }}</td>
         </tr>
         {% endfor %}
         </tbody>
     </table>
-    {% else %}
-    <h3>No dealer available.</h3>
     {% endif %}
     {% endblock %}
+
+    <script>
+        $(function() {
+            $('#table').bootstrapTable()
+        })
+    </script>
 
     </body>
 

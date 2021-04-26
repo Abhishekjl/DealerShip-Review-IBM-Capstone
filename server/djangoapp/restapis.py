@@ -31,11 +31,12 @@ def get_request(url, **kwargs):
 # Create a `post_request` to make HTTP POST requests
 # e.g., response = requests.post(url, params=kwargs, json=payload)
 def post_request(url, json_payload, **kwargs):
-    print(kwargs)
+    json_obj = json_payload["review"]
+    print("Payload: ", json_obj, ". Params: ", kwargs)
     print("POST to {} ".format(url))
-    print(json_payload["review"])
+    #print(json_payload["review"])
     try:
-        response = requests.post(url, json=json_payload, params=kwargs)
+        response = requests.post(url, headers={'Content-Type': 'application/json'}, json=json_obj, params=kwargs)
     except:
         print("Network exception occurred")
     
@@ -109,11 +110,11 @@ def analyze_review_sentiments(review):
         text=text,
         features= Features(sentiment= SentimentOptions())
     ).get_result()
-    print(json.dumps(response))
-    sentiment_score = str(response["sentiment"]["document"]["score"])
+    #print(json.dumps(response))
+    #sentiment_score = str(response["sentiment"]["document"]["score"])
     sentiment_label = response["sentiment"]["document"]["label"]
-    print(sentiment_score)
-    print(sentiment_label)
+    #print(sentiment_score)
+    #print(sentiment_label)
     sentimentresult = sentiment_label
     
     return sentimentresult
