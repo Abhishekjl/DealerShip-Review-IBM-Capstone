@@ -78,7 +78,7 @@ def registration_request(request):
                                             last_name=last_name,
                                             password=password)
             login(request, user)
-            return render(request, 'djangoapp/index.html', context)
+            return redirect('djangoapp:index')
         else:
             return render(request, 'djangoapp/index.html', context)
 
