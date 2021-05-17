@@ -5,6 +5,9 @@ To give you an overview of the whole project, all the high-level steps are liste
 The project is then divided into several smaller labs that give the detailed instructions for each step. 
 You must complete all the labs to successfully complete the project.
 
+## Deployment
+The live deployment of this project can be found here: https://ilopez64.us-south.cf.appdomain.cloud/djangoapp/
+
 ## Project Breakdown
 
 **Prework: Sign up for IBM Cloud account and create a Watson Natural language Understanding service**
